@@ -6,6 +6,7 @@ var fileManager = require('./api/managers/file-manager')
 var mailManager = require('./api/managers/mail-manager')
 var upload = multer()
 const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 5000
 
 
 app.use(bodyParser.json()); 
@@ -20,8 +21,8 @@ app.use(function(req, res, next) {
     next();
   });
 
-app.listen(8008,function(){
-    console.log('8008 started')
+app.listen(PORT,function(){
+    console.log(PORT+' started')
 })
 
 app.get('/',(req,res)=>{
