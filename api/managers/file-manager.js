@@ -74,7 +74,7 @@ async function uploadFile(fileData){
             uploadUrl: uploadUrlBucket,
             uploadAuthToken: uploadAuthToken,
             fileName: randomFileName,
-            data: Buffer.from(fileData.fileB64, 'base64'), // this is expecting a Buffer, not an encoded string
+            data: Buffer.from(fileData.fileB64.split(',')[1], 'base64'), // this is expecting a Buffer, not an encoded string
             onUploadProgress: (event) => {console.log(event)} 
             // ...common arguments (optional)
         });  

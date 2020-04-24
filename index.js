@@ -47,9 +47,9 @@ app.post('/upload',async (req, res) => {
     console.log('==========>AuthTokenHeader')
     console.log(authHeader)
     const token = authHeader && authHeader.split(' ')[1]
-  let fileLink = await fileManager.uploadFile(req.body.fileData)
-  await UserManagement.createMedia(token,fileLink);
-  res.send({fileLink})
+    let fileLink = await fileManager.uploadFile(req.body.fileData)
+    await UserManagement.createMedia(token,fileLink);
+    res.send({fileLink})
 })
 
 
