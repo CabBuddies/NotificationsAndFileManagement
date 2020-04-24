@@ -1,5 +1,6 @@
 var express = require('express')
 var app = express()
+const cors = require('cors');
 var multer  = require('multer')
 var path = require('path')
 var fileManager = require('./api/managers/file-manager')
@@ -11,6 +12,7 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000
 
 
+app.use(cors());
 app.use(bodyParser.json()); 
 
 // for parsing application/xwww-
