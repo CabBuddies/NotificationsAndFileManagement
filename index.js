@@ -41,10 +41,14 @@ app.get('/mail',(req,res)=>{
     res.sendFile(path.join(__dirname + '/test/mail.html'));
 })
 
-app.post('/upload', authToken.extractAuthToken ,async (req, res) => {
+app.post('/upload',async (req, res) => {
   //console.log(req.file)
+    const authHeader = req.headers['authorization']
+    console.log('==========>AuthTokenHeader')
+    console.log(authHeader)
+    const token = authHeader && authHeader.split(' ')[1]
   let fileLink = await fileManager.uploadFile(req.body.fileData)
-  await UserManagement.createMedia(req.token,fileLink);
+  await UserManagement.createMedia(token,fileLink);
   res.send({fileLink})
 })
 
