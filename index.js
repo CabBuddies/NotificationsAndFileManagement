@@ -41,8 +41,8 @@ app.get('/mail',(req,res)=>{
     res.sendFile(path.join(__dirname + '/test/mail.html'));
 })
 
-app.post('/upload', authToken.optAuthenticateToken ,async function (req, res) {
-  console.log(req.file)
+app.post('/upload', authToken.extractAuthToken ,async function (req, res) {
+  //console.log(req.file)
   let fileLink = await fileManager.uploadFile(req.body.fileData)
   await UserManagement.createMedia(req.token,fileLink);
   res.send({fileLink})
