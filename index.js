@@ -4,6 +4,8 @@ var multer  = require('multer')
 var path = require('path')
 var fileManager = require('./api/managers/file-manager')
 var mailManager = require('./api/managers/mail-manager')
+var authToken = require('api-library-user-management/utils/auth-token')
+const UserManagement = require('api-library-user-management')
 var upload = multer()
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5000
@@ -37,9 +39,10 @@ app.get('/mail',(req,res)=>{
     res.sendFile(path.join(__dirname + '/test/mail.html'));
 })
 
-app.post('/upload', upload.single('avatar'), async function (req, res) {
+app.post('/upload', authToken.optAuthenticateToken ,async function (req, res) {
   console.log(req.file)
-  let fileLink = await fileManager.uploadFile(req.file)
+  let fileLink = await fileManager.uploadFile(req.body.fileData)
+  await UserManagement.createMedia(req.token,fileLink);
   res.send({fileLink})
 })
 
@@ -47,6 +50,7 @@ app.post('/upload', upload.single('avatar'), async function (req, res) {
 app.post('/mail', async function (req, res) {
     //console.log(req)
     console.log(req.body)
+
     await mailManager.sendMail(req.body.to,req.body.subject,req.body.html)
     res.sendFile(path.join(__dirname + '/test/mail.html'));
 })

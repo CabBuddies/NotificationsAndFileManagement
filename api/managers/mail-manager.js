@@ -9,8 +9,8 @@ async function loadTransporter(){
             port: 465,
             secure: true, // true for 465, false for other ports
             auth: {
-            user: 'cabbuddies@nihalkonda.com', // generated ethereal user
-            pass: 'ikmvCab.123' // generated ethereal password
+              user: 'cabbuddies@nihalkonda.com', // generated ethereal user
+              pass: 'ikmvCab.123' // generated ethereal password
             }
         });
 }

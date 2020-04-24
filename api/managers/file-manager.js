@@ -60,7 +60,7 @@ async function getUploadUrl(){
     return UPLOAD_URL
 }
 
-async function uploadFile(fileBuffer){
+async function uploadFile(fileData){
     try {
         let uploadUrl = await getUploadUrl()
         console.log(uploadUrl)
@@ -68,13 +68,13 @@ async function uploadFile(fileBuffer){
         console.log(uploadUrlBucket)
         let uploadAuthToken = uploadUrl.data.authorizationToken;
         console.log(uploadAuthToken)
-        let randomFileName=new Date().getTime()+'_'+fileBuffer.originalname;
-        console.log(fileBuffer.buffer)
+        let randomFileName=new Date().getTime()+'_'+fileData.fileName;
+        //console.log(fileBuffer.buffer)
         let uploadFile = await b2.uploadFile({
             uploadUrl: uploadUrlBucket,
             uploadAuthToken: uploadAuthToken,
             fileName: randomFileName,
-            data: fileBuffer.buffer, // this is expecting a Buffer, not an encoded string
+            data: Buffer.from(fileData.fileB64, 'base64'), // this is expecting a Buffer, not an encoded string
             onUploadProgress: (event) => {console.log(event)} 
             // ...common arguments (optional)
         });  
