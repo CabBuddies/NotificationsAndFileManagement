@@ -9,7 +9,7 @@ var authToken = require('api-library-user-management/utils/auth-token')
 const UserManagement = require('api-library-user-management')
 var upload = multer()
 const bodyParser = require('body-parser');
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5002
 
 
 app.use(cors());
